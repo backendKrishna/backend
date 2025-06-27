@@ -1,0 +1,577 @@
+✅ 1. 🔍 Search Flights (with Discount)
+
+URL:
+GET http://localhost:5000/api/flights?from=DEL&to=BOM
+
+Expected Output:
+
+[
+  {
+    "airline": "Indigo",
+    "flightNumber": "6E123",
+    "from": "DEL",
+    "to": "BOM",
+    "departureTime": "08:00",
+    "arrivalTime": "10:00",
+    "basePrice": 5000,
+    "discountPercent": 10,
+    "discountedPrice": 4500
+  }
+]
+---------------------------------------------------------------
+
+✅ 2. 🛫 Add Flights (Multiple at Once)
+URL:
+POST http://localhost:5000/api/flights
+
+Body → raw → JSON:
+
+
+[
+  {
+    "airline": "Indigo",
+    "flightNumber": "6E123",
+    "from": "DEL",
+    "to": "BOM",
+    "departureTime": "08:00",
+    "arrivalTime": "10:00",
+    "basePrice": 5000,
+    "discountPercent": 10
+  },
+  {
+    "airline": "Air India",
+    "flightNumber": "AI456",
+    "from": "BLR",
+    "to": "DEL",
+    "departureTime": "11:00",
+    "arrivalTime": "13:30",
+    "basePrice": 7000,
+    "discountPercent": 15
+  }
+]
+--------------------------updated--------------
+[
+  {
+    "airline": "ITA Airways",
+    "flightNumber": "AZ408",
+    "from": "DEL",
+    "to": "FCO",
+    "departureTime": "17:30",
+    "arrivalTime": "05:00",
+    "basePrice": 30000,
+    "discountPercent": 16,
+    "cabinClass": [
+      {
+        "type": "Economy",
+        "multiplier": 1
+      },
+      {
+        "type": "Premium Economy",
+        "multiplier": 1.3
+      },
+      {
+        "type": "Business",
+        "multiplier": 1.7
+      }
+    ]
+  }
+]
+
+---------------------------------------------------------------
+
+✅ 3. ✏️ Update Flight (Discount/Info)
+URL:
+PUT http://localhost:5000/api/flights/<flight_id>
+
+Example Body:
+
+
+{
+  "discountPercent": 20
+}
+
+---------------------------------------------------------------
+
+✅ 4. 🗑️ Delete Flight
+URL:
+DELETE http://localhost:5000/api/flights/<flight_id>
+
+---------------------------------------------------------------
+
+✅ 5. 📦 Create Booking
+URL:
+POST http://localhost:5000/api/bookings
+
+Body:
+
+
+{
+  "flightId": "66b....",
+  "passengerName": "Krishna Shukla",
+  "email": "krishna@example.com",
+  "seatClass": "Economy"
+}
+--------------------------single trip bookinmg---------------------
+
+{
+  "departureFlightId": "6854602b2795a26aebb1dc03",
+  "passengerName": "John Shukla",
+  "email": "john@example.com",
+  "phone": "9876543210",
+  "seatClass": "Business",
+  "travelers": {
+    "adults": 2,
+    "children": 1,
+    "lapInfants": 1
+  }
+}
+
+--------------------------round trip booking-----------------
+ {
+   "departureFlightId": "665c56b41ffb99a2552e1d01",
+   "returnFlightId": "665c56b41ffb99a2552e1d02",
+   "passengerName": "Test User",
+   "email": "test@example.com",
+   "phone": "1234567890",
+   "seatClass": "Economy",
+   "travelers": {
+     "adults": 1,
+     "children": 0,
+     "lapInfants": 0
+   },
+   "tripType": "roundtrip",
+   "travelDate": "2025-06-25",
+   "returnDate": "2025-06-30"
+ }
+ -----------------------updated nbooking field--------
+ {
+  "departureFlightId": "6854602b2795a26aebb1dc03",
+  "firstName":"Ramesh",
+  "lastName":"shukla",
+  "age":25,
+  "gender":"Male",   
+  "email": "rames@example.com",
+  "phone": "9876543210",
+  "seatClass": "Business",
+  "travelers": {
+    "adults": 2,
+    "children": 1,
+    "lapInfants": 1
+  }
+}
+
+
+---------------------------------------------------------------
+
+✅ 6. 📃 Get All Bookings
+URL:
+GET http://localhost:5000/api/bookings
+
+[
+  {
+    "_id": "6852ed9d4c17cf7d38b92ebb",
+    "flight": {
+      "_id": "6851f5508a9d6023f9b1f1fe",
+      "airline": "Indigo",
+      "flightNumber": "6E123",
+      "from": "DEL",
+      "to": "BOM",
+      "departureTime": "08:00",
+      "arrivalTime": "10:00",
+      "basePrice": 5000,
+      "discountPercent": 10,
+      "cabinClass": [],
+      "__v": 0
+    },
+    "passengerName": "Krishna Shukla",
+    "email": "krishna@example.com",
+    "seatClass": "Economy",
+    "price": 5000,
+    "createdAt": "2025-06-18T16:47:25.067Z",
+    "updatedAt": "2025-06-18T16:47:25.067Z",
+    "__v": 0
+  },
+
+---------------------------------------------------------------
+
+✅ 7.]   GET BOOKING BY ID   http://localhost:5000/api/bookings/6852ed9d4c17cf7d38b92ebb
+
+---------------------------------------------------------------
+
+✅ 8.] 🌍 Search Airports (Dropdown)
+URL:
+GET http://localhost:5000/api/airports?search=del   OR     http://localhost:5000/api/airports?search=d
+
+Expected Output:
+
+[
+  {
+    "code": "DEL",
+    "name": "Indira Gandhi International Airport",
+    "city": "Delhi"
+  }
+]
+---------------------------------------------------------------
+
+✅ 9.] 🛬 Add New Airport
+URL:
+POST http://localhost:5000/api/airports
+
+Body:
+
+
+{
+  "code": "DEL",
+  "name": "Indira Gandhi International Airport",
+  "city": "Delhi"
+}
+---------------------------------------------------------------
+
+✅ 10.] 📧 Visitor Info Email (Mailtrap test)
+URL:
+POST http://localhost:5000/api/visitors
+
+Body:
+
+{
+  "name": "Krishna Shukla",
+  "email": "krishna.user@example.com",
+  "phone":"987654321",
+  "from": "DEL",
+  "to": "BOM",
+  "travelDate": "2025-06-21",
+   "returnDate": "2025-06-22" 
+}
+---------
+
+{
+  "name": "Abc",
+  "email": "abc@example.com",
+  "phone": "9999999999",
+  "from": "BOM",
+  "to": "LKO",
+  "travelDate": "2025-07-01",
+  "tripType": "oneway"
+}
+----------
+ {
+   "name": "Abc",
+   "email": "abc@example.com",
+   "phone": "9999999999",
+   "from": "BOM",
+   "to": "LKO",
+   "travelDate": "2025-07-01",
+   "returnDate": "2025-07-10",
+   "tripType": "roundtrip"
+ }
+ --------
+ {
+  "name": "Ramesh Shukla",
+  "email": "ramesh@example.com",
+  "phone": "9876543210",
+  "from": "DEL",
+  "to": "CCU",
+  "travelDate": "2025-07-10",
+  "returnDate": "2025-07-25",
+  "tripType": "roundtrip",
+  "seatClass": "Premium Economy",
+  "travelers": {
+    "adults": 2,
+    "children": 1,
+    "lapInfants": 1
+  }
+}
+
+====================================================
+Expected Result:
+Email is received in https://mailtrap.io inbox.
+
+
+==================GET ALL VISITORS=============
+
+10.1]   http://localhost:5000/api/visitors?page=1&perPage=5
+
+=================================================
+✅ 11.] POST http://localhost:5000/api/alerts
+Body → JSON
+
+{
+  "email": "krishna@example.com",
+  "from": "DEL",
+  "to": "BOM",
+  "priceBelow": 4000
+}
+=================================================
+✅ 12.] POST http://localhost:5000/api/flighthistory
+
+{
+  "flightId": "60ab1e1234abcdef12345678",
+  "price": 3500,
+  "userEmail": "test@example.com"
+}
+
+==================================================Register User==========
+
+✅ 13.]  POST http://localhost:5000/api/users/register
+
+{
+  "name": "Krishna Shukla",
+  "email": "krishna@gmail.com",
+  "phone": "1234567890",
+  "password": "secure123"
+}
+
+==================================================Login User
+
+✅ 14.] POST http://localhost:5000/api/users/login
+
+{
+  "email": "krishna@gmail.com",
+  "password": "secure123"
+}
+----------------------------------------------------------
+🛑 Your visitor API is not enough for login/authentication
+✅ Add /register and /login using JWT & bcrypt
+
+--------------------------Pagination and staus code--------------------------------
+
+// GET /api/bookings?limit=10&skip=20
+// GET /api/flights?from=DEL&to=LKO&page=1&perPage=5&sort=cheapest
+// GET /api/airports?search=del&page=1&perPage=5    OR   http://localhost:5000/api/airports?search=a&page=2&perPage=5
+// GET /api/flighthistory?page=2&perPage=5
+http://localhost:5000/api/airports?search=kolkata   or   code  or airport name    all is working
+
+http://localhost:5000/api/flights?from=DEL&to=Mumbai ✅
+
+http://localhost:5000/api/flights?from=Kolkata&to=BOM ✅
+
+http://localhost:5000/api/flights?from=Chhatrapati&to=DEL ✅
+
+http://localhost:5000/api/flights?from=FCO&to=Delhi ✅
+--------------------------------------------------------
+✅ 15.] POST http://localhost:5000/api/deals
+
+Sample JSON body:
+
+{
+  "city": "Rome",
+  "price": 1451,
+  "image": "https://your-image-url.com/rome.jpg"
+}
+-----------------------------------------------
+GET  http://localhost:5000/api/deals
+--------------------------------------------------
+
+USER REGISTRATION
+
+POST      http://localhost:5000/api/users/register
+
+{
+  "name":"Krishna",
+  "email":"krishna@gmail.com", 
+  "phone":"1234567890", 
+  "password":"krishna123"
+}
+---
+registration succesfull
+-----------------------
+USER LOGIN 
+POST   http://localhost:5000/api/users/login
+
+{
+   "email":"krishna@gmail.com", 
+   "password":"krishna123"
+}
+----
+{
+  "message": "Login successful",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTcyNzM5YWYxMmM0Yjg2NTQwOGIwNCIsImlhdCI6MTc1MDU0MjE4MSwiZXhwIjoxNzUwNjI4NTgxfQ.QxSnLg0mFcVixc4KvYJtdPWjawHnxC4Iwetkejp1CbY"
+}
+------------------------------
+USER PROFILE
+
+GET http://localhost:5000/api/users/profile
+IN HEADER
+Authorization     Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NTcyNzM5YWYxMmM0Yjg2NTQwOGIwNCIsImlhdCI6MTc1MDU0MjE4MSwiZXhwIjoxNzUwNjI4NTgxfQ.QxSnLg0mFcVixc4KvYJtdPWjawHnxC4Iwetkejp1CbY
+
+{
+  "message": "Protected data access granted",
+  "user": {
+    "_id": "68572739af12c4b865408b04",
+    "name": "Krishna1",
+    "email": "krishna1@gmail.com",
+    "phone": "1234567890",
+    "__v": 0
+  }
+}
+==================QUETES=================
+POST: http://localhost:5000/api/quotes
+→ Submits form data.
+{
+  "fullName": "John Doe",
+  "email": "john@example.com",
+  "phone": "1234567890",
+  "travelers": 5,
+  "destination": "Paris",
+  "details": "Company trip"
+}
+
+
+
+GET: http://localhost:5000/api/quotes
+→ Returns an array of all submitted group quotes.
+======================CONTACT==============
+POST--- http://localhost:5000/api/contact
+
+{
+  "name": "Krishna Shukla",
+  "email": "krishna@example.com",
+  "message": "Hi, I would like to know more about your flight services."
+}
+---------
+GET--- http://localhost:5000/api/contact?page=1&limit=5
+
+
+==================================================
+
+
+Flight Search
+aa
+krishnaprasad24795@gmail.com
+
+Delhi (DEL)
+
+Mumbai (BOM)
+
+26-06-2025
+Search Flights
+Available Flights
+Flight: Indigo (6E123)
+
+Route: DEL → BOM | 08:00 - 10:00
+
+Price: ₹4500₹5000
+
+=============================================================
+✅ Feature Checklist (with Mapping to Code/API)
+Feature	Implemented?	        Confirmed By
+Flight search (From–To)	      ✅ Yes	GET /api/flights?from=DEL&to=BOM
+Price with discount	          ✅ Yes	Response includes basePrice, discountPercent, and discountedPrice
+Booking flights	              ✅ Yes	POST /api/bookings with flightId, passengerName, etc.
+Airport dropdown/autocomplete	✅ Yes	GET /api/airports?search=del returns filtered airport list
+Basic backend architecture	  ✅ Yes	Node.js + Express + MongoDB are being used
+Admin: Add flights, airports	✅ Yes	POST /api/flights (bulk add), POST /api/airports
+Update flight discount	      ✅ Yes	PUT /api/flights/<flight_id> to update discount or other info
+Delete flight	                ✅ Yes	DELETE /api/flights/<flight_id>
+Get All Bookings	            ✅ Yes	GET /api/bookings
+Send Visitor Email via Mailtrap	✅ Yes	POST /api/visitors with Mailtrap integration
+=================================================================
+| Feature           | Endpoint                       | Method   |
+| ----------------- | ------------------------------ | -------- |
+| Create Airport    | `/api/airports`                | `POST`   |
+| Search Airports   | `/api/airports?search=xyz`     | `GET`    |
+| Add Flight        | `/api/flights`                 | `POST`   |
+| Search Flights    | `/api/flights?from=XXX&to=YYY` | `GET`    |
+| Update Flight     | `/api/flights/:id`             | `PUT`    |
+| Delete Flight     | `/api/flights/:id`             | `DELETE` |
+| Create Booking    | `/api/bookings`                | `POST`   |
+| Get All Bookings  | `/api/bookings`                | `GET`    |
+| Send Visitor Info | `/api/visitors`                | `POST`   |
+=================================================================================
+| 🔢  | **Your API Label**     | ✅ **Implemented API**                           | ✔️ **Status**       |
+| --- | ---------------------- | ----------------------------------------------- | ------------------- |
+| 1️⃣ | `create airport`       | `POST /api/airports`                            | ✅ Correct           |
+| 2️⃣ | `get airport` (Search)| `GET /api/airports?search=del`                  | ✅ Correct           |
+| 3️⃣ | `create alert`         |  POST /api/alerts                              | ✅ Correct |
+| 4️⃣ | `create booking`       | `POST /api/bookings`                            | ✅ Correct           |
+| 5️⃣ | `get booking`          | `GET /api/bookings`                             | ✅ Correct           |
+| 6️⃣ | `search flight`        | `GET /api/flights?from=DEL&to=BOM`              | ✅ Correct           |
+| 7️⃣ | `insert flight`        | `POST /api/flights` (bulk insert)               | ✅ Correct           |
+| 8️⃣ | `send visitor details` | `POST /api/visitors` (sends email via Mailtrap) | ✅ Correct           |
+| 9️⃣  | Get Flight History     | GET /api/flighthistory                           | ✅ Implemented        |
+| 🔟  | Add Flight History     | POST /api/flighthistory                          | ✅ Implemented        |
+
+===================================================
+    ✈️ Flight APIs
+
+ API Name	             Method	    URL
+1] Search Flights	       GET	      /api/flights?from=DEL&to=BOM
+2] Add Flights (Bulk)    POST	      /api/flights
+3] Update Flight	       PUT	      /api/flights/:flightId
+4] Delete Flight	       DELETE	    /api/flights/:flightId
+5] Flight History (Add)  POST	       /api/flighthistory
+---------------------------------------------------------------
+   🧾 Booking APIs
+
+ API Name	             Method	     URL
+6] Create Booking	       POST	       /api/bookings
+7] Get All Bookings      GET	       /api/bookings
+8] Get Booking by ID     GET	       /api/bookings/:bookingId
+---------------------------------------------------------------
+   🛫 Airport APIs
+
+ API Name	             Method	      URL
+9] Search Airports       GET	        /api/airports?search=del
+10] Add New Airport       POST	        /api/airports
+---------------------------------------------------------------
+   📩 Miscellaneous APIs
+
+ API Name	             Method	 URL
+11] Visitor Info (Email)	 POST	   /api/visitors
+12] Create Alert	         POST	   /api/alerts
+---------------------------------------------------------------
+=========================================================================================================
+
+
+
+=======================LIVE BACKEND LINK====================================================
+
+
+⚙️ Backend (Node.js API):
+https://flight-backend-0gtp.onrender.com
+
+==============================
+1] FLIGHT API--->
+--------------
+GET https://flight-backend-0gtp.onrender.com/api/flights?from=DEL&to=BOM
+GET https://flight-backend-0gtp.onrender.com/api/flights?from=DEL&to=LKO&page=1&perPage=5&sort=cheapest
+GET https://flight-backend-0gtp.onrender.com/api/flights?from=DEL&to=Mumbai
+GET https://flight-backend-0gtp.onrender.com/api/flights?from=Kolkata&to=BOM
+GET https://flight-backend-0gtp.onrender.com/api/flights?from=Chhatrapati&to=DEL
+GET https://flight-backend-0gtp.onrender.com/api/flights?from=FCO&to=Delhi
+
+-------------------------------------------------------------------------------
+2] BOOKING API--->
+---------------
+POST https://flight-backend-0gtp.onrender.com/api/bookings
+GET  https://flight-backend-0gtp.onrender.com/api/bookings/6852ed9d4c17cf7d38b92ebb
+GET  https://flight-backend-0gtp.onrender.com/api/bookings?limit=10&skip=20
+-------------------------------------------------------------------------------
+
+3] AIRPORT API--->
+---------------
+GET https://flight-backend-0gtp.onrender.com/api/airports?search=del
+GET https://flight-backend-0gtp.onrender.com/api/airports?search=del&page=1&perPage=5
+GET https://flight-backend-0gtp.onrender.com/api/airports?search=a&page=2&perPage=5
+GET https://flight-backend-0gtp.onrender.com/api/airports?search=kolkata
+
+-------------------------------------------------------------------------------
+4] VISITOR LOGS--->
+----------------
+GET https://flight-backend-0gtp.onrender.com/api/visitors?page=1&perPage=5
+
+-------------------------------------------------------------------------------
+5] FLIGHT HISTORY--->
+------------------
+GET https://flight-backend-0gtp.onrender.com/api/flighthistory?page=1&perPage=5
+
+-------------------------------------------------------------------------------
+6] TOP DEALS--->
+
+GET https://flight-backend-0gtp.onrender.com/api/deals
+
+===============================================================================
+
+
+
+
